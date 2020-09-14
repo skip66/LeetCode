@@ -1,5 +1,8 @@
 package day20200914;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author hutao
  * @description  无重复字符的最长子串
@@ -29,4 +32,30 @@ package day20200914;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Solution01 {
+    /**
+     * 解题思路：参考滑动窗口解题方法
+     */
+    public static int lengthOfLongestSubstring(String s) {
+
+        int ans = 0;
+        int len = s.length();
+        int start = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int end = 0; end < len; end ++) {
+            Character c = s.charAt(end);
+            if (map.containsKey(c)) {
+                start = Math.max(map.get(c) + 1, start);
+            }
+            ans = Math.max(ans, end - start +1);
+            map.put(c, end);
+        }
+
+        return ans;
+
+    }
+
+    public static void main(String[] args) {
+        int l = lengthOfLongestSubstring("pwwkew");
+        System.out.println(l);
+    }
 }
